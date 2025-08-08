@@ -7,7 +7,7 @@ function NewPlantForm({ onAddPlant }) {
   const plant = {
     name: e.target.name.value,
     image: e.target.image.value,
-    price: parseFloat(e.target.price.value),
+    price: e.target.price.value,
   };
   fetch("http://localhost:6001/plants", {
     method: "POST",
@@ -19,9 +19,13 @@ function NewPlantForm({ onAddPlant }) {
   .then((response) => response.json())
   .then((newPlant) => {
     onAddPlant(newPlant);
+    e.target.reset();
+  })
+  .catch((error) => {
+    console.error("Error adding plant:", error);
   });
-  e.target.reset();
-  }
+
+}
 
   return (
     <div className="new-plant-form">
